@@ -1,6 +1,8 @@
 package backend;
 
-import DBManager.SqlHandler;
+import dto.Borrowed;
+import dto.Inventory;
+import dto.User;
 
 import java.sql.*;
 
