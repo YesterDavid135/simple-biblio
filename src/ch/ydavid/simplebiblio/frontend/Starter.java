@@ -1,6 +1,6 @@
-import frontend.View;
+package ch.ydavid.simplebiblio.frontend;
 
-public class Main {
+public class Starter {
     public static void main(String[] args) {
         try {
             int userID = Integer.parseInt(args[0]);
