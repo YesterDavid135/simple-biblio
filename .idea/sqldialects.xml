@@ -3,5 +3,6 @@
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/ch/ydavid/simplebiblio/sqlHandler/BorrowHandler.java" dialect="MariaDB" />
     <file url="file://$PROJECT_DIR$/src/ch/ydavid/simplebiblio/sqlHandler/UserHandler.java" dialect="MariaDB" />
+    <file url="file://$PROJECT_DIR$/src/ch/ydavid/simplebiblio/test/BorrowInterfaceTest.java" dialect="GenericSQL" />
   </component>
 </project>
