@@ -1,7 +1,5 @@
 package ch.ydavid.simplebiblio.sqlHandler;
 
-import ch.ydavid.simplebiblio.dto.Item;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;

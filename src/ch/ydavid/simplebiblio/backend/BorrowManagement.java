@@ -1,9 +1,17 @@
 package ch.ydavid.simplebiblio.backend;
 
+import ch.ydavid.simplebiblio.dto.Item;
+import ch.ydavid.simplebiblio.sqlHandler.BorrowHandler;
+import ch.ydavid.simplebiblio.sqlHandler.ItemHandler;
+
+import java.util.ArrayList;
+
 public class BorrowManagement implements BorrowInterface {
 
-    public void borrowItem() {
+    BorrowHandler sqlHandler = new BorrowHandler();
 
+    public boolean borrowItem(int itemID, int userID) {
+        return sqlHandler.borrowItem(itemID, userID);
     }
 
 
