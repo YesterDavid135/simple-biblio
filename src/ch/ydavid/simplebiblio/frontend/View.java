@@ -89,6 +89,7 @@ public class View {
      */
     public void getAvalibleItems() {
         System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
+        System.out.println();
         System.out.println("-----------------------------------------------------------------------------------------------");
         for (Item i : backend.getBorrowManager().getAvalibleItems()) {
             System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
@@ -111,7 +112,6 @@ public class View {
             System.out.println("Type 3 to exit the Simple-Biblio.");
 
             int input = sc.nextInt();
-            int itemID;
 
             switch (input) {
                 case 1:
