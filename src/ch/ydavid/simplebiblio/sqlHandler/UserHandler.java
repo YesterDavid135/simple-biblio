@@ -36,7 +36,7 @@ public class UserHandler extends SqlHandler {
                         null, // to lazy for that todo @noel
                         rs.getInt("idUser"),
                         rs.getString("username"),
-                        rs.getString("password") // very secure
+                        rs.getInt("password") // very secure
                 );
             }
         } catch (Exception e) {

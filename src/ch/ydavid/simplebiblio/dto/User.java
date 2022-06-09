@@ -11,10 +11,10 @@ public class User {
 	private int idUser;
 
 	private String username;
-	private String password;
+	private int password;
 
 
-	public User(String name, String vname, int yob, String street, Location location, int idUser, String username, String password) {
+	public User(String name, String vname, int yob, String street, Location location, int idUser, String username, int password) {
 		this.name = name;
 		this.vname = vname;
 		this.yob = yob;
@@ -81,11 +81,11 @@ public class User {
 		this.username = username;
 	}
 
-	public String getPassword() {
+	public int getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(int password) {
 		this.password = password;
 	}
 }
