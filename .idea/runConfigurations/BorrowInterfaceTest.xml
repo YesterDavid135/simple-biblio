@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="BorrowInterfaceTest" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+    <module name="simple-biblio" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="ch.ydavid.simplebiblio.test.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <option name="PACKAGE_NAME" value="ch.ydavid.simplebiblio.test" />
+    <option name="MAIN_CLASS_NAME" value="ch.ydavid.simplebiblio.test.BorrowInterfaceTest" />
+    <option name="METHOD_NAME" value="" />
+    <option name="TEST_OBJECT" value="class" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
