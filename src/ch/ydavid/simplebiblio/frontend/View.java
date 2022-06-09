@@ -2,17 +2,38 @@ package ch.ydavid.simplebiblio.frontend;
 
 import ch.ydavid.simplebiblio.backend.BackendFacade;
 import ch.ydavid.simplebiblio.dto.Item;
+import ch.ydavid.simplebiblio.dto.User;
 
 import java.util.Scanner;
 
 public class View {
-    private int userID;
+    private User user;
     private BackendFacade backend;
 
-    public View(int userID) {
-        this.userID = userID;
+    public View() {
         this.backend = new BackendFacade();
+        login();
         printMenu();
+    }
+
+    private void login() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Please enter your username: ");
+        String username = sc.nextLine();
+
+        System.out.print("Please enter your password: ");
+        String password = sc.nextLine();
+
+        User user = backend.getUserManager().checkLogin(username, password);
+
+        if (user == null) {
+            System.out.println("Username or password is wrong");
+            System.out.println("bye");
+            System.exit(1);
+        }
+
+        this.user = user;
+
     }
 
     public void addCustomer() {
@@ -36,7 +57,7 @@ public class View {
 
         int input = sc.nextInt();
 
-        if (backend.getBorrowManager().borrowItem(input, userID)) {
+        if (backend.getBorrowManager().borrowItem(input, user.getIdUser())) {
             System.out.println("Succesfully borrowed the Item");
         } else {
             System.out.println("Error.");
@@ -56,8 +77,7 @@ public class View {
     public void printMenu() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("*** WELCOME TO SIMPLEBIBLIO ***");
-        System.out.println("You're userID is: " + userID);
+        System.out.println("*** WELCOME TO SIMPLEBIBLIO " + user.getVname() + " ***");
         System.out.println("Type 1 to borrow an item.");
         System.out.println("Type 2 to return an item.");
         System.out.println("Type 3 to exit the Simple-Biblio.");

@@ -1,6 +1,12 @@
 package ch.ydavid.simplebiblio.backend;
 
+import ch.ydavid.simplebiblio.dto.User;
+import ch.ydavid.simplebiblio.sqlHandler.UserHandler;
+
 public class UserManagement implements UserInterface {
+
+    UserHandler sqlHandler = new UserHandler();
+
     public void addUser() {
 
     }
@@ -11,5 +17,17 @@ public class UserManagement implements UserInterface {
 
     public void searchUser() {
 
+    }
+
+    public User checkLogin(String username, String password) {
+
+        User user = sqlHandler.searchUser(username);
+
+        if (user != null && user.getPassword().equals(password)) {
+            user.setPassword(""); //Very secure
+            return user;
+        }
+
+        return null;
     }
 }
