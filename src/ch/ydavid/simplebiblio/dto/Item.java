@@ -4,22 +4,22 @@ package ch.ydavid.simplebiblio.dto;
 public class Item {
 
 	private int ID;
-	private int Titel;
-	private MediaType mediaType;
+    private String Titel;
+    private MediaType mediaType;
 	private int ageRating;
 	private String autor;
 	private int isbn;
 	private int shelf;
 
-	public Item(int ID, int titel, MediaType mediaType, int ageRating, String autor, int isbn, int shelf) {
-		this.ID = ID;
-		Titel = titel;
-		this.mediaType = mediaType;
-		this.ageRating = ageRating;
-		this.autor = autor;
-		this.isbn = isbn;
-		this.shelf = shelf;
-	}
+    public Item(int ID, String titel, MediaType mediaType, int ageRating, String autor, int isbn, int shelf) {
+        this.ID = ID;
+        Titel = titel;
+        this.mediaType = mediaType;
+        this.ageRating = ageRating;
+        this.autor = autor;
+        this.isbn = isbn;
+        this.shelf = shelf;
+    }
 
 	public int getID() {
 		return ID;
@@ -29,13 +29,13 @@ public class Item {
 		this.ID = ID;
 	}
 
-	public int getTitel() {
-		return Titel;
-	}
+    public String getTitel() {
+        return Titel;
+    }
 
-	public void setTitel(int titel) {
-		Titel = titel;
-	}
+    public void setTitel(String titel) {
+        Titel = titel;
+    }
 
 	public MediaType getMediaType() {
 		return mediaType;

@@ -6,11 +6,25 @@ public class BorrowManagement implements BorrowInterface {
 
     }
 
-    public void returnItem() {
 
+    public void returnItem(int itemID) {
+        sqlHandler.returnItem(itemID);
     }
 
-    public void getAvalibleItems() {
+    public ArrayList<Item> getAvalibleItems() {
+
+        ArrayList<Integer> borrowedItems = sqlHandler.getBorrowedItems(-1);
+
+        ArrayList<Item> returnArray = new ArrayList<>();
+
+        for (Item i : new ItemHandler().getItems()) {
+            if (!borrowedItems.contains(i.getID())) {
+                returnArray.add(i);
+            }
+        }
+
+        return returnArray;
+
 
     }
 }
