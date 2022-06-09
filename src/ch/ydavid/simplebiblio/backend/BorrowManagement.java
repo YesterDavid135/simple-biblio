@@ -11,12 +11,20 @@ public class BorrowManagement implements BorrowInterface {
     BorrowHandler sqlHandler = new BorrowHandler();
 
     public boolean borrowItem(int itemID, int userID) {
-        return sqlHandler.borrowItem(itemID, userID);
+        if (!sqlHandler.getBorrowedItems(userID).contains(itemID)) {
+            return sqlHandler.borrowItem(itemID, userID);
+        } else {
+            return false;
+        }
     }
 
 
-    public void returnItem(int itemID) {
-        sqlHandler.returnItem(itemID);
+    public boolean returnItem(int itemID) {
+        if (sqlHandler.getBorrowedItems(-1).contains(itemID)) {
+            return sqlHandler.returnItem(itemID);
+        } else {
+            return false;
+        }
     }
 
     public ArrayList<Item> getAvalibleItems() {
@@ -32,7 +40,20 @@ public class BorrowManagement implements BorrowInterface {
         }
 
         return returnArray;
+    }
 
+    public ArrayList<Item> getBorrowedItems(int userID) {
 
+        ArrayList<Integer> borrowedItems = sqlHandler.getBorrowedItems(userID);
+
+        ArrayList<Item> returnArray = new ArrayList<>();
+
+        for (Item i : new ItemHandler().getItems()) {
+            if (borrowedItems.contains(i.getID())) {
+                returnArray.add(i);
+            }
+        }
+
+        return returnArray;
     }
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public interface BorrowInterface {
     public boolean borrowItem(int userID, int itemID);
 
-    public void returnItem(int itemID);
+    public boolean returnItem(int itemID);
 
     public ArrayList<Item> getAvalibleItems();
 }
