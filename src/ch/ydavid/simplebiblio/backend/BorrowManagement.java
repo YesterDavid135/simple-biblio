@@ -10,6 +10,13 @@ public class BorrowManagement implements BorrowInterface {
 
     BorrowHandler sqlHandler = new BorrowHandler();
 
+    /**
+     * Borrow a item
+     *
+     * @param itemID item to be borrowed
+     * @param userID user who borrow the item
+     * @return boolean indicating success
+     */
     public boolean borrowItem(int itemID, int userID) {
         if (!sqlHandler.getBorrowedItems(userID).contains(itemID)) {
             return sqlHandler.borrowItem(itemID, userID);
@@ -18,7 +25,12 @@ public class BorrowManagement implements BorrowInterface {
         }
     }
 
-
+    /**
+     * Return a item to the biblio
+     *
+     * @param itemID item to be returned
+     * @return boolean indicating success
+     */
     public boolean returnItem(int itemID) {
         if (sqlHandler.getBorrowedItems(-1).contains(itemID)) {
             return sqlHandler.returnItem(itemID);
@@ -27,6 +39,11 @@ public class BorrowManagement implements BorrowInterface {
         }
     }
 
+    /**
+     * Get Available Items to borrow
+     *
+     * @return ArrayList containing available items
+     */
     public ArrayList<Item> getAvalibleItems() {
 
         ArrayList<Integer> borrowedItems = sqlHandler.getBorrowedItems(-1);
@@ -42,6 +59,12 @@ public class BorrowManagement implements BorrowInterface {
         return returnArray;
     }
 
+    /**
+     * Get all Borrowed Items
+     *
+     * @param userID borrowed user or -1 for all
+     * @return ArrayList containing all Items
+     */
     public ArrayList<Item> getBorrowedItems(int userID) {
 
         ArrayList<Integer> borrowedItems = sqlHandler.getBorrowedItems(userID);

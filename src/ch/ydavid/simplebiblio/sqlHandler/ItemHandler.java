@@ -10,10 +10,20 @@ import java.util.ArrayList;
 
 public class ItemHandler extends SqlHandler {
 
-    public void addItems() {
+    /**
+     * Creates a new Item
+     *
+     * @param i item to be created
+     */
+    public void addItems(Item i) {
 
     }
 
+    /**
+     * Get all Items in database
+     *
+     * @return ArrayList of Items
+     */
     public ArrayList<Item> getItems() {
         try {
             String query = "SELECT * FROM tbl_items";

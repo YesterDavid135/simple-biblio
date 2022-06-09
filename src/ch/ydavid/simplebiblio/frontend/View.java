@@ -7,15 +7,21 @@ import ch.ydavid.simplebiblio.dto.User;
 import java.util.Scanner;
 
 public class View {
-    private User user;
+    private User user; //Current logged in user
     private BackendFacade backend;
 
+    /**
+     * Constructor / Entry Point
+     **/
     public View() {
         this.backend = new BackendFacade();
         login();
         printMenu();
     }
 
+    /**
+     * Logging in User
+     **/
     private void login() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Please enter your username: ");
@@ -36,22 +42,26 @@ public class View {
 
     }
 
+    /**
+     * Add a User
+     */
     public void addCustomer() {
 
     }
 
+    /**
+     * Add a Item
+     */
     public void addItem() {
 
     }
 
+    /**
+     * Borrows a Itme
+     */
     public void borrowItem() {
-        System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
-        System.out.println();
-        System.out.println("-----------------------------------------------------------------------------------------------");
-        for (Item i : backend.getBorrowManager().getAvalibleItems()) {
-            System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
-            System.out.println();
-        }
+        getAvalibleItems();
+
         Scanner sc = new Scanner(System.in);
         System.out.print("Select your item (-1 for exit): ");
 
@@ -67,14 +77,28 @@ public class View {
 
     }
 
+    /**
+     * Edits a User
+     */
     public void changeCustomer() {
 
     }
 
+    /**
+     * Show Available Items
+     */
     public void getAvalibleItems() {
-
+        System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        for (Item i : backend.getBorrowManager().getAvalibleItems()) {
+            System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
+            System.out.println();
+        }
     }
 
+    /**
+     * Prints main Menu
+     */
     public void printMenu() {
         System.out.println();
         System.out.println("*** Welcome To SIMPLEBIBLIO, " + user.getVname() + " ***");
@@ -106,6 +130,9 @@ public class View {
         }
     }
 
+    /**
+     * Return a borrowed item
+     */
     public void returnItem() {
         System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
         System.out.println();
@@ -129,10 +156,16 @@ public class View {
         }
     }
 
+    /**
+     * Search for a Customer
+     */
     public void searchCustomer() {
 
     }
 
+    /**
+     * Search for a Item
+     */
     public void searchItem() {
 
     }

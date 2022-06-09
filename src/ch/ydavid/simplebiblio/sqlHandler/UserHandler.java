@@ -8,14 +8,31 @@ import java.sql.Statement;
 
 public class UserHandler extends SqlHandler {
 
-    public void addUser() {
+    /**
+     * Creates a new User
+     *
+     * @param user User to be Created
+     */
+    public void addUser(User user) {
 
     }
 
-    public void changeUser() {
+    /**
+     * Changes a User <br>
+     * Everything can be changed except the ID
+     *
+     * @param user user to be changed
+     */
+    public void changeUser(User user) {
 
     }
 
+    /**
+     * Search for a User
+     *
+     * @param username username to be searched for
+     * @return User Object or null if not found
+     */
     public User searchUser(String username) {
 
         String query = "SELECT * FROM tbl_users where username = \"" + username + "\" limit 1";

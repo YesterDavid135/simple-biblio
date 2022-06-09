@@ -6,7 +6,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class BorrowHandler extends SqlHandler {
-
+    /**
+     * Borrows a Item
+     *
+     * @param itemID item to be borrowed
+     * @param userID user who borrowes the item
+     * @return boolean true if successful
+     */
     public boolean borrowItem(int itemID, int userID) {
         try {
             String query = "INSERT INTO tbl_borrowed (fk_idUser, fk_idItem) ";
@@ -26,6 +32,12 @@ public class BorrowHandler extends SqlHandler {
         }
     }
 
+    /**
+     * Return a borrowed item
+     *
+     * @param itemID item to be returned
+     * @return boolean true if successful
+     */
     public boolean returnItem(int itemID) {
         try {
             String query = "UPDATE tbl_borrowed SET returned = 1 where returned = 0 AND fk_idItem = ";
@@ -45,6 +57,12 @@ public class BorrowHandler extends SqlHandler {
         }
     }
 
+    /**
+     * Get all Borrowed items
+     *
+     * @param userID borrowed user or -1 for all
+     * @return ArrayList of borrowed items
+     */
     public ArrayList<Integer> getBorrowedItems(int userID) {
         try {
             String query = "SELECT fk_idItem FROM tbl_borrowed WHERE returned = 0";
@@ -68,6 +86,11 @@ public class BorrowHandler extends SqlHandler {
         }
     }
 
+    /**
+     * Get all Items which are returned
+     *
+     * @return ArrayList of Item ID
+     */
     public ArrayList<Integer> getReturnedItems() {
         try {
             String query = "SELECT fk_idItem FROM tbl_borrowed WHERE returned = 1 GROUP BY fk_idItem";

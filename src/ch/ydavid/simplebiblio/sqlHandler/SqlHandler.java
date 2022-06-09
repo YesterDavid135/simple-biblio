@@ -10,10 +10,15 @@ import java.sql.SQLException;
      private String username = "admin";
      private String password = "password";
 
-
+     /**
+      * Provides Connection to the Mariadb Database
+      *
+      * @return Connection object
+      * @throws SQLException On error
+      */
      public Connection getConnection() throws SQLException {
 
          return DriverManager.getConnection(url, username, password);
 
      }
-}
+ }
