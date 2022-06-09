@@ -74,8 +74,7 @@ public class View {
     }
 
     public void printMenu() {
-        System.out.println("*** WELCOME TO SIMPLEBIBLIO ***");
-        System.out.println("You're userID is: " + user.getIdUser());
+        System.out.println("*** WELCOME TO SIMPLEBIBLIO, " + user.getVname() + " ***");
 
         Scanner sc = new Scanner(System.in);
 
@@ -100,14 +99,16 @@ public class View {
                 default:
                     System.out.println("Invalid input. Please try again");
             }
+            System.out.println();
         }
+    }
 
     public void returnItem() {
-        System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
+        System.out.format("%5s%40s%30s%20s%20s", "ID", "Titel", "Autor", "Mediatype", "User");
         System.out.println();
-        System.out.println("-----------------------------------------------------------------------------------------------");
+        System.out.println("-------------------------------------------------------------------------------------------------------------------");
         for (Item i : backend.getBorrowManager().getBorrowedItems(-1)) {
-            System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
+            System.out.format("%5d%40s%30s%20s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType(), "you're mama");
             System.out.println();
         }
 
