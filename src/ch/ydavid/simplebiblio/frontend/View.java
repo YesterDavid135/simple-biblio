@@ -27,8 +27,8 @@ public class View {
         User user = backend.getUserManager().checkLogin(username, password);
 
         if (user == null) {
-            System.out.println("Username or password is wrong");
-            System.out.println("bye");
+            System.out.println("Username or password is wrong.");
+            System.out.println("Bye.");
             System.exit(1);
         }
 
@@ -57,10 +57,12 @@ public class View {
 
         int input = sc.nextInt();
 
-        if (backend.getBorrowManager().borrowItem(input, user.getIdUser())) {
-            System.out.println("Succesfully borrowed the Item");
+        if (input == -1) {
+            System.out.println("Exiting...");
+        } else if (backend.getBorrowManager().borrowItem(input, user.getIdUser())) {
+            System.out.println("Successfully borrowed the item.");
         } else {
-            System.out.println("Error.");
+            System.out.println("ERROR");
         }
 
     }
@@ -74,7 +76,8 @@ public class View {
     }
 
     public void printMenu() {
-        System.out.println("*** WELCOME TO SIMPLEBIBLIO, " + user.getVname() + " ***");
+        System.out.println();
+        System.out.println("*** Welcome To SIMPLEBIBLIO, " + user.getVname() + " ***");
 
         Scanner sc = new Scanner(System.in);
 
@@ -104,11 +107,11 @@ public class View {
     }
 
     public void returnItem() {
-        System.out.format("%5s%40s%30s%20s%20s", "ID", "Titel", "Autor", "Mediatype", "User");
+        System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
         System.out.println();
-        System.out.println("-------------------------------------------------------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------");
         for (Item i : backend.getBorrowManager().getBorrowedItems(-1)) {
-            System.out.format("%5d%40s%30s%20s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType(), "you're mama");
+            System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
             System.out.println();
         }
 
@@ -117,10 +120,12 @@ public class View {
 
         int input = sc.nextInt();
 
-        if (backend.getBorrowManager().returnItem(input)) {
-            System.out.println("Succesfully returned the Item");
+        if (input == -1) {
+            System.out.println("Exiting...");
+        } else if (backend.getBorrowManager().returnItem(input)) {
+            System.out.println("Successfully returned the item.");
         } else {
-            System.out.println("Error.");
+            System.out.println("ERROR");
         }
     }
 
