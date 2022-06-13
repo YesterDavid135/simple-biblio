@@ -4,14 +4,20 @@ import ch.ydavid.simplebiblio.dto.User;
 import ch.ydavid.simplebiblio.sqlHandler.UserHandler;
 
 public class UserManagement implements UserInterface {
-
     UserHandler sqlHandler = new UserHandler();
 
     /**
      * Add a User to the database
+     *
+     * @return
      */
-    public void addUser() {
+    public User addUser(User user) {
+        sqlHandler.addUser(user);
+        return sqlHandler.searchUser(user.getUsername());
+    }
 
+    public boolean checkUsername(String username){
+        return sqlHandler.searchUser(username) == null;
     }
 
     /**

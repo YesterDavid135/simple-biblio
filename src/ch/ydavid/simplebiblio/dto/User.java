@@ -10,9 +10,12 @@ public class User {
 	private Location location;
 	private int idUser;
 
+	private String mail;
 	private String username;
 	private int password;
 
+	public User() {
+	}
 
 	public User(String name, String vname, int yob, String street, Location location, int idUser, String username, int password) {
 		this.name = name;
@@ -27,6 +30,14 @@ public class User {
 
 	public String getName() {
 		return name;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 
 	public void setName(String name) {

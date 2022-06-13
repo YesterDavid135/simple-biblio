@@ -2,6 +2,7 @@ package ch.ydavid.simplebiblio.frontend;
 
 import ch.ydavid.simplebiblio.backend.BackendFacade;
 import ch.ydavid.simplebiblio.dto.Item;
+import ch.ydavid.simplebiblio.dto.Location;
 import ch.ydavid.simplebiblio.dto.User;
 
 import java.util.Scanner;
@@ -10,20 +11,97 @@ public class View {
     private User user; //Current logged in user
     private BackendFacade backend;
 
+    private final Scanner sc;
+
     /**
      * Constructor / Entry Point
      **/
     public View() {
+        sc = new Scanner(System.in);
+
+
         this.backend = new BackendFacade();
-        login();
+        System.out.println("Press 1 to Register");
+        System.out.println("Press 2 to Login");
+        System.out.println("Press 3 to Exit");
+
+        int input = sc.nextInt();
+        sc.nextLine();
+
+        switch (input) {
+            case 1:
+                register();
+                break;
+            case 2:
+                login();
+                break;
+            default:
+                System.exit(0);
+        }
+
         printMenu();
+    }
+
+    private void register() {
+        System.out.println("Hello newbie");
+        System.out.println("Please enter your worthy data:");
+
+        User newbie = new User();
+
+        System.out.print("First Name: ");
+        newbie.setVname(sc.nextLine());
+
+        System.out.print("Last Name: ");
+        newbie.setName(sc.nextLine());
+
+        while (true) {
+            System.out.print("Username: ");
+            newbie.setUsername(sc.nextLine());
+
+            if (backend.getUserManager().checkUsername(newbie.getUsername())) {
+                break;
+            }
+
+            System.out.println("Username already taken, please try again.");
+
+        }
+
+
+        System.out.print("Email: ");
+        newbie.setMail(sc.nextLine());
+
+        System.out.print("Year of Birth: ");
+        newbie.setYob(sc.nextInt());
+        sc.nextLine();
+
+        System.out.print("Street: ");
+        newbie.setStreet(sc.nextLine());
+
+        System.out.print("ZIP: ");
+        Location location = new Location();
+        location.setZIP(sc.nextLine());
+
+        System.out.print("Location: ");
+        location.setLocation(sc.nextLine());
+        newbie.setLocation(location);
+
+        System.out.println("Create password: ");
+        String password = sc.nextLine();
+
+        System.out.println("Confirm password: ");
+        if (!password.equals(sc.nextLine())) {
+            System.out.println("Passwords don't match");
+            System.exit(0);
+        }
+
+        newbie.setPassword(password.hashCode());
+
     }
 
     /**
      * Logging in User
      **/
     private void login() {
-        Scanner sc = new Scanner(System.in);
         System.out.print("Please enter your username: ");
         String username = sc.nextLine();
 
@@ -62,9 +140,7 @@ public class View {
     public void borrowItem() {
         getAvalibleItems();
 
-        Scanner sc = new Scanner(System.in);
         System.out.print("Select your item (-1 for exit): ");
-
         int input = sc.nextInt();
 
         if (input == -1) {
@@ -107,6 +183,7 @@ public class View {
         Scanner sc = new Scanner(System.in);
 
         while (true) {
+
             System.out.println("Type 1 to borrow an item.");
             System.out.println("Type 2 to return an item.");
             System.out.println("Type 3 to exit the Simple-Biblio.");
