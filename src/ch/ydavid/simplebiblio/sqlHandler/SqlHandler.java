@@ -7,8 +7,8 @@ import java.sql.SQLException;
  public class SqlHandler {
 
      private String url = "jdbc:mysql://192.168.30.135:3306/simpleBiblio";
-     private String username = "admin";
-     private String password = "password";
+     private String username = "techuser";
+     private String password = "katze";
 
      /**
       * Provides Connection to the Mariadb Database
