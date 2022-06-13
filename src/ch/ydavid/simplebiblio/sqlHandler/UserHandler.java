@@ -1,10 +1,13 @@
 package ch.ydavid.simplebiblio.sqlHandler;
 
+import ch.ydavid.simplebiblio.dto.Location;
 import ch.ydavid.simplebiblio.dto.User;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class UserHandler extends SqlHandler {
 
@@ -15,7 +18,61 @@ public class UserHandler extends SqlHandler {
      */
     public void addUser(User user) {
 
+        String query = "SELECT * FROM tbl_location WHERE ZIP = " + user.getLocation().getZIP();
 
+        try {
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            ArrayList<Location> locations = new ArrayList<>();
+
+            while (rs.next()) {
+                Location location = new Location();
+                location.setLocation(rs.getString("location"));
+                location.setIdLoc(rs.getInt("IdLoc"));
+                locations.add(location);
+
+            }
+
+            if (locations.size() == 0) {
+                throw new Exception("ZIP is wrong.");
+            }
+
+            if (locations.size() == 1) {
+                user.setLocation(locations.get(0));
+            }
+
+            if (locations.size() > 1) {
+                for (Location location : locations) {
+                    if (location.getLocation().equals(user.getLocation().getLocation())) {
+                        user.setLocation(location);
+                        break;
+                    }
+                }
+            }
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        query = "INSERT INTO tbl_users VALUES (null, \"" + user.getName() + "\",\"" + user.getVname() + "\",\"" + user.getYob() + "\",\"" + user.getStreet() + "\",\"" + user.getLocation().getIdLoc() + "\",\"" + user.getMail() + "\",\"" + user.getPassword() + "\",\"" + user.getUsername() + "\");";
+        System.out.println(query);
+
+        try {
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            ResultSet rs = stmt.executeQuery(query);
+
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**

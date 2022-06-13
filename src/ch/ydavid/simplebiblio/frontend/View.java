@@ -23,13 +23,18 @@ public class View {
         this.backend = new BackendFacade();
         System.out.println("Press 1 to Register");
         System.out.println("Press 2 to Login");
-        System.out.println("Press anything else to exit");
+        System.out.println("Press 3 to Exit");
 
-        switch (sc.nextInt()) {
+        int input = sc.nextInt();
+        sc.nextLine();
+
+        switch (input) {
             case 1:
                 register();
+                break;
             case 2:
                 login();
+                break;
             default:
                 System.exit(0);
         }
@@ -39,14 +44,29 @@ public class View {
 
     private void register() {
         System.out.println("Hello newbie");
-        System.out.println("Please enter your worthy data");
+        System.out.println("Please enter your worthy data:");
 
         User newbie = new User();
 
         System.out.print("First Name: ");
         newbie.setVname(sc.nextLine());
+
         System.out.print("Last Name: ");
         newbie.setName(sc.nextLine());
+
+        while (true) {
+            System.out.print("Username: ");
+            newbie.setUsername(sc.nextLine());
+
+            if (backend.getUserManager().checkUsername(newbie.getUsername())) {
+                break;
+            }
+
+            System.out.println("Username already taken, please try again.");
+
+        }
+
+
         System.out.print("Email: ");
         newbie.setMail(sc.nextLine());
 
@@ -56,25 +76,25 @@ public class View {
 
         System.out.print("Street: ");
         newbie.setStreet(sc.nextLine());
+
         System.out.print("ZIP: ");
         Location location = new Location();
         location.setZIP(sc.nextLine());
+
         System.out.print("Location: ");
         location.setLocation(sc.nextLine());
+        newbie.setLocation(location);
 
         System.out.println("Create password: ");
         String password = sc.nextLine();
+
         System.out.println("Confirm password: ");
         if (!password.equals(sc.nextLine())) {
             System.out.println("Passwords don't match");
-            System.out.println("Fucking dumbhead");
             System.exit(0);
         }
 
         newbie.setPassword(password.hashCode());
-
-        backend.getUserManager().addUser(newbie);
-
 
     }
 
