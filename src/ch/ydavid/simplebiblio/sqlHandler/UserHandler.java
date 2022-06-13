@@ -60,7 +60,6 @@ public class UserHandler extends SqlHandler {
         }
 
         query = "INSERT INTO tbl_users VALUES (null, \"" + user.getName() + "\",\"" + user.getVname() + "\",\"" + user.getYob() + "\",\"" + user.getStreet() + "\",\"" + user.getLocation().getIdLoc() + "\",\"" + user.getMail() + "\",\"" + user.getPassword() + "\",\"" + user.getUsername() + "\");";
-        System.out.println(query);
 
         try {
             Connection connection = super.getConnection();

@@ -96,6 +96,8 @@ public class View {
 
         newbie.setPassword(password.hashCode());
 
+        user = backend.getUserManager().addUser(newbie);
+
     }
 
     /**
