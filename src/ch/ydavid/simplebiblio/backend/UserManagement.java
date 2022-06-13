@@ -10,8 +10,8 @@ public class UserManagement implements UserInterface {
     /**
      * Add a User to the database
      */
-    public void addUser() {
-
+    public void addUser(User user) {
+        sqlHandler.addUser(user);
     }
 
     /**
