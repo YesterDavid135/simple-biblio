@@ -19,7 +19,6 @@ public class View {
     public View() {
         sc = new Scanner(System.in);
 
-
         this.backend = new BackendFacade();
         System.out.println("Press 1 to Register");
         System.out.println("Press 2 to Login");
@@ -179,6 +178,27 @@ public class View {
      * Prints main Menu
      */
     public void printMenu() {
+        if (user.getIdUser() == 0){
+            System.out.println("Welcome, Admin! ");
+
+            while (true) {
+
+                System.out.println("Type 1 for Item Management");
+                System.out.println("Type 2 for User Management");
+                System.out.println("Type 3 to exit");
+
+                switch (sc.nextInt()) {
+                    case 1 -> {
+                        System.out.println("Type 1 to add an Item");
+                        System.out.println("Type 2 to remove an Item");
+                    }
+                    case 2 -> System.out.println("Type 1 to remove an User");
+                    case 3 -> System.exit(0);
+                    default -> System.out.println("Invalid input. Please try again");
+                }
+
+            }
+        }
         System.out.println();
         System.out.println("*** Welcome To SIMPLEBIBLIO, " + user.getVname() + " ***");
 
