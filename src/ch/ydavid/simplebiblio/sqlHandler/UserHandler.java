@@ -18,7 +18,7 @@ public class UserHandler extends SqlHandler {
      */
     public void addUser(User user) {
 
-        String query = "SELECT * FROM tbl_location WHERE ZIP = " + user.getLocation().getZIP();
+        String query = "SELECT * FROM tbl_location WHERE \"ZIP\"= '" + user.getLocation().getZIP() + "'";
 
         try {
             Connection connection = super.getConnection();
@@ -59,14 +59,15 @@ public class UserHandler extends SqlHandler {
             System.out.println(e);
         }
 
-        query = "INSERT INTO tbl_users VALUES (null, \"" + user.getName() + "\",\"" + user.getVname() + "\",\"" + user.getYob() + "\",\"" + user.getStreet() + "\",\"" + user.getLocation().getIdLoc() + "\",\"" + user.getMail() + "\",\"" + user.getPassword() + "\",\"" + user.getUsername() + "\");";
+//        query = "INSERT INTO tbl_users VALUES (null, \"" + user.getName() + "\",\"" + user.getVname() + "\",\"" + user.getYob() + "\",\"" + user.getStreet() + "\",\"" + user.getLocation().getIdLoc() + "\",\"" + user.getMail() + "\",\"" + user.getPassword() + "\",\"" + user.getUsername() + "\");";
+        query = "INSERT INTO tbl_users (name,vname,yob,street,fk_location,mail,password,username) VALUES ('" + user.getName() + "','" + user.getVname() + "'," + user.getYob() + ",'" + user.getStreet() + "'," + user.getLocation().getIdLoc() + ",'" + user.getMail() + "','" + user.getPassword() + "','" + user.getUsername() + "');";
 
         try {
             Connection connection = super.getConnection();
 
             Statement stmt = connection.createStatement();
 
-            ResultSet rs = stmt.executeQuery(query);
+            stmt.execute(query);
 
 
         } catch (Exception e) {
@@ -92,7 +93,7 @@ public class UserHandler extends SqlHandler {
      */
     public User searchUser(String username) {
 
-        String query = "SELECT * FROM tbl_users where username = \"" + username + "\" limit 1";
+        String query = "SELECT * FROM tbl_users where username = \'" + username + "\' limit 1";
 
         try {
             Connection connection = super.getConnection();
