@@ -211,7 +211,8 @@ public class View {
 
                 System.out.println("Type 1 for Item Management");
                 System.out.println("Type 2 for User Management");
-                System.out.println("Type 3 to exit");
+                System.out.println("Type 3 for Borrow Management");
+                System.out.println("Type 4 to exit");
 
                 switch (sc.nextInt()) {
                     case 1 -> {
@@ -246,7 +247,17 @@ public class View {
                             }
                         }
                     }
-                    case 3 -> System.exit(0);
+                    case 3 -> {
+                        System.out.println("Type 1 to delete ALL Borrow Entries");
+                        System.out.println("Type 2 to delete entries for a user");
+
+                        switch (sc.nextInt()){
+                            case 1 -> deleteBorrowEntries();
+                            case 2 -> deleteBorrowEntry();
+                        }
+
+                    }
+                    case 4 -> System.exit(0);
                     default -> System.out.println("Invalid input. Please try again");
                 }
 
@@ -280,6 +291,42 @@ public class View {
             }
             System.out.println();
         }
+    }
+
+    private void deleteBorrowEntries() {
+        sc.nextLine();
+        System.out.println("Are you sure to delete ALL Borrow Entries?");
+        System.out.print("Type YES to Continue: ");
+
+        if (!sc.nextLine().toLowerCase().equals("yes")){
+            System.out.println("Process Aborted!");
+            return;
+        }
+
+      if(backend.getBorrowManager().deleteEntries(null))
+          System.out.println("Succesfully deleted all Entries");
+    else
+        System.out.println("Error occured, please ask Noel");
+
+    }
+
+    private void deleteBorrowEntry() {
+        sc.nextLine();
+        System.out.println("You are about to delete all Borrow Entries for one User");
+        System.out.print("Please enter username or -1 for exit: ");
+
+        String username = sc.nextLine();
+        if (username.equals("-1")){
+            return;
+        }
+
+        if(backend.getBorrowManager().deleteEntries(username))
+            System.out.println("Succesfully deleted all Entries for " + username);
+        else
+            System.out.println("Error occured, please ask Noel");
+
+
+
     }
 
     private void removeCustomer() {

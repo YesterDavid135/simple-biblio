@@ -112,4 +112,29 @@ public class BorrowHandler extends SqlHandler {
         }
     }
 
+    public boolean deleteEntries(int userID) {
+
+        try {
+            String query = "DELETE FROM tbl_borrowed ";
+
+            if (userID != -1){
+                query+="where \"fk_idUser\" = " + userID;
+            }
+
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            stmt.execute(query);
+
+            if (!stmt.execute(query)){
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+        return false;
+    }
 }

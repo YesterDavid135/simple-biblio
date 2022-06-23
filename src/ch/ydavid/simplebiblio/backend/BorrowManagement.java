@@ -79,4 +79,16 @@ public class BorrowManagement implements BorrowInterface {
 
         return returnArray;
     }
+
+    public boolean deleteEntries(String username) {
+        int userID = -1;
+
+        if (username != null)
+            userID = new UserManagement().searchUser(username).getIdUser();
+
+
+        return sqlHandler.deleteEntries(userID);
+
+
+    }
 }
