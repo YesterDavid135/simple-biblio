@@ -94,7 +94,7 @@ public class UserHandler extends SqlHandler {
      */
     public User searchUser(String username) {
 
-        String query = "SELECT * FROM tbl_users where username = \'" + username + "\' limit 1";
+        String query = "SELECT * FROM tbl_users left join tbl_location as l on tbl_users.fk_location = l.\"idLoc\" where username = \'" + username + "\' limit 1";
 
         try {
             Connection connection = super.getConnection();
@@ -110,8 +110,13 @@ public class UserHandler extends SqlHandler {
                         rs.getString("vname"),
                         rs.getInt("yob"),
                         rs.getString("street"),
-                        null, // to lazy for that todo @noel
+                        new Location(
+                                rs.getInt("idLoc"),
+                                rs.getString("ZIP"),
+                                rs.getString("location")
+                        ),
                         rs.getInt("idUser"),
+                        rs.getString("mail"),
                         rs.getString("username"),
                         rs.getInt("password") // very secure
                 );

@@ -30,8 +30,8 @@ public class UserManagement implements UserInterface {
     /**
      * Search for a User in the Database
      */
-    public void searchUser() {
-
+    public User searchUser(String username) {
+        return sqlHandler.searchUser(username);
     }
 
     /**

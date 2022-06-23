@@ -175,7 +175,7 @@ public class View {
         } else if (backend.getBorrowManager().borrowItem(input, user.getIdUser())) {
             System.out.println("Successfully borrowed the item.");
         } else {
-            System.out.println("ERROR");
+            System.out.println("Error.");
         }
 
     }
@@ -233,7 +233,20 @@ public class View {
                         }
 
                     }
-                    case 2 -> System.out.println("Type 1 to remove an User");
+                    case 2 -> {
+                        System.out.println("Type 1 to search for Users");
+                        System.out.println("Type 1 to remove an User");
+
+                        switch (sc.nextInt()) {
+                            case 1 -> searchCustomer();
+                            case 2 -> removeCustomer();
+                            default -> {
+                                System.out.println("Invalid Input!");
+                                System.out.println("Please try Again");
+                                System.exit(0);
+                            }
+                        }
+                    }
                     case 3 -> System.exit(0);
                     default -> System.out.println("Invalid input. Please try again");
                 }
@@ -302,7 +315,7 @@ public class View {
         } else if (backend.getBorrowManager().returnItem(input)) {
             System.out.println("Successfully returned the item.");
         } else {
-            System.out.println("ERROR");
+            System.out.println("Error.");
         }
     }
 
@@ -310,7 +323,26 @@ public class View {
      * Search for a Customer
      */
     public void searchCustomer() {
+        System.out.println("Please type in the name of the customer: ");
+        String input = sc.next();
 
+        if (backend.getUserManager().searchUser(input) == null) {
+            System.out.println("Error: User not found.");
+            return;
+        }
+
+        User user = backend.getUserManager().searchUser(input);
+
+        System.out.println("--- USER FOUND ---");
+        System.out.println("ID: " + user.getIdUser());
+        System.out.println("Username: " + user.getUsername());
+        System.out.println("First Name: " + user.getVname());
+        System.out.println("Last Name: " + user.getName());
+        System.out.println("Year of Birth: " + user.getYob());
+        System.out.println("Street: " + user.getStreet());
+        System.out.println("Location: " + user.getLocation().getZIP() + " " +  user.getLocation().getLocation());
+        System.out.println("Email: " + user.getMail());
+        System.out.println("------------------");
     }
 
     /**
