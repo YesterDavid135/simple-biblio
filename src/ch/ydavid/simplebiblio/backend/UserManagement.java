@@ -24,7 +24,8 @@ public class UserManagement implements UserInterface {
      * Remove a User in the Database
      */
     public boolean removeUser(String username) {
-        return sqlHandler.removeUser(searchUser(username));
+        if (!new BorrowManagement().deleteEntries(username)) return true;
+        return sqlHandler.removeUser(username);
     }
 
     /**
