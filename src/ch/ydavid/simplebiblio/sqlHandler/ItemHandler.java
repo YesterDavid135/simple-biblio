@@ -15,8 +15,26 @@ public class ItemHandler extends SqlHandler {
      *
      * @param i item to be created
      */
-    public void addItems(Item i) {
+    public boolean addItem(Item i) {
 
+        try {
+            String query = "insert into tbl_items (title, \"ageRating\", autor, shelf, \"ISBN\", \"fk_mediaType\") " +
+                    "values ('" + i.getTitel() + "'," + i.getAgeRating() + ",'" + i.getAutor() + "',"
+                    + i.getShelf() + "," + i.getIsbn() + "," + (i.getMediaType().ordinal()+1) + ")";
+
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            if (!stmt.execute(query)){
+                int count = stmt.getUpdateCount();
+                return count == 1;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
     /**

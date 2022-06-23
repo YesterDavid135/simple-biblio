@@ -7,6 +7,7 @@ import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserHandler extends SqlHandler {
@@ -103,6 +104,7 @@ public class UserHandler extends SqlHandler {
             ResultSet rs = stmt.executeQuery(query);
 
             if (rs.next()) {
+
                 return new User(
                         rs.getString("name"),
                         rs.getString("vname"),
