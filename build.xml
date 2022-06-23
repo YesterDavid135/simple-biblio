@@ -1,12 +1,36 @@
 <project name="simpleBiblio" default="jar">
+    <property name="src.dir" value="./src/ch/ydavid/simplebiblio"/>
+    <property name="build.dir" value="./bin"/>
 
-    <!-- Target zum Erstellen von bibliothek.jar -->
-    <target name="jar">
+    <path id="master-classpath">
+        <fileset dir="./Libraries">
+            <include name="*.jar"/>
+        </fileset>
+        <pathelement path="${build.dir}"/>
+    </path>
+
+
+    <target name="build" depends="clean" description="Compile source tree java files">
+        <mkdir dir="${build.dir}"/>
+        <javac destdir="${build.dir}" includeAntRuntime="false">
+            <src path="${src.dir}"/>
+            <exclude name="**/*Test.java" />
+
+            <classpath refid="master-classpath"/>
+        </javac>
+    </target>
+
+    <target name="clean" description="Clean output directories">
+            <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="jar" depends="build">
         <!-- Entpacken und kopieren der benoetigten Libraries und Dateien -->
         <unjar src="./Libraries/postgresql-42.4.0.jar" dest="./target/lib"/>
         <copy todir="./target/lib">
-            <fileset dir="./out/production/simple-biblio"/>
+            <fileset dir="./bin"/>
         </copy>
+
         <!-- Erstellen des Java Archivs -->
         <jar destfile="./target/simpleBiblio.jar">
             <fileset dir="./target/lib"/>
@@ -15,5 +39,8 @@
                 <attribute name="Class-Path" value="."/>
             </manifest>
         </jar>
+
+        <!-- loescht nicht mehr benoetigte Dateien -->
+        <delete dir="./target/lib"/>
     </target>
 </project>
