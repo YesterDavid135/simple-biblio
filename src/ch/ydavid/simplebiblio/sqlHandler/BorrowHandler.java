@@ -86,32 +86,6 @@ public class BorrowHandler extends SqlHandler {
         }
     }
 
-    /**
-     * Get all Items which are returned
-     *
-     * @return ArrayList of Item ID
-     */
-    public ArrayList<Integer> getReturnedItems() {
-        try {
-            String query = "SELECT \"fk_idItem\" FROM tbl_borrowed WHERE returned = 1 GROUP BY \"fk_idItem\"";
-
-            Connection connection = super.getConnection();
-
-            Statement stmt = connection.createStatement();
-
-            ResultSet rs = stmt.executeQuery(query);
-
-            ArrayList<Integer> returnSet = new ArrayList<>();
-
-            while (rs.next())
-                returnSet.add(rs.getInt("fk_idItem"));
-            return returnSet;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-
     public boolean deleteEntries(int userID) {
 
         try {
