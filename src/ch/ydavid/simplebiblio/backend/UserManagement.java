@@ -21,10 +21,10 @@ public class UserManagement implements UserInterface {
     }
 
     /**
-     * Change a User in the Database
+     * Remove a User in the Database
      */
-    public void changeUser() {
-
+    public boolean removeUser(String username) {
+        return sqlHandler.removeUser(searchUser(username));
     }
 
     /**
