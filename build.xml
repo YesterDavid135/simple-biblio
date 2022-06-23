@@ -1,0 +1,19 @@
+<project name="simpleBiblio" default="jar">
+
+    <!-- Target zum Erstellen von bibliothek.jar -->
+    <target name="jar">
+        <!-- Entpacken und kopieren der benoetigten Libraries und Dateien -->
+        <unjar src="./Libraries/postgresql-42.4.0.jar" dest="./target/lib"/>
+        <copy todir="./target/lib">
+            <fileset dir="./out/production/simple-biblio"/>
+        </copy>
+        <!-- Erstellen des Java Archivs -->
+        <jar destfile="./target/simpleBiblio.jar">
+            <fileset dir="./target/lib"/>
+            <manifest>
+                <attribute name="Main-Class" value="ch.ydavid.simplebiblio.frontend.Starter"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        </jar>
+    </target>
+</project>
