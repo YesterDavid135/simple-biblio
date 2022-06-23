@@ -1,7 +1,9 @@
 package ch.ydavid.simplebiblio.backend;
 
+import ch.ydavid.simplebiblio.dto.Item;
+
 public interface ItemInterface {
 
     public void searchItem();
-    public void addItem();
+    public boolean addItem(Item newItem);
 }

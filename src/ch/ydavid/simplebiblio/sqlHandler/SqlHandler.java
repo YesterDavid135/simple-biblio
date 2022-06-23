@@ -1,5 +1,8 @@
 package ch.ydavid.simplebiblio.sqlHandler;
 
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -7,9 +10,8 @@ import java.util.Properties;
 
 public class SqlHandler {
 
-     private String url = "jdbc:postgresql://192.168.30.34:5432/simpleBiblio";
-     private Properties props = new Properties();
 
+     private Properties props = new Properties();
 
      /**
       * Provides Connection to the PostgreSQL Database
@@ -19,9 +21,18 @@ public class SqlHandler {
       */
      public Connection getConnection() throws SQLException {
 
-         props.setProperty("user","postgres");
-         props.setProperty("password","InfLb20.admin");
-         return DriverManager.getConnection(url, props);
+         try {
+             InputStream in = SqlHandler.class.getResourceAsStream("config.properties");
+             props.load(in);
+             in.close();
+         } catch (IOException e) {
+             throw new RuntimeException(e);
+         }
+
+         String connection = props.getProperty("connection");
+         String user = props.getProperty("user");
+         String password = props.getProperty("password");
+         return DriverManager.getConnection(connection, user, password);
 
      }
  }

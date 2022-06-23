@@ -8,17 +8,13 @@ public enum MediaType {
     }
 
     public MediaType getValue(int i) {
-        switch (i) {
-            case 1:
-                return Book;
-            case 2:
-                return Audio_CD;
-            case 3:
-                return DVD;
-            case 4:
-                return ComputerGames;
-            default:
-                return null;
-        }
+        return switch (i) {
+            case 1 -> Book;
+            case 2 -> Audio_CD;
+            case 3 -> DVD;
+            case 4 -> ComputerGames;
+            default -> null;
+        };
     }
+
 }

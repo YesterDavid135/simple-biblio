@@ -7,5 +7,5 @@ public interface UserInterface {
 
     public void changeUser();
 
-    public void searchUser();
+    public User searchUser(String username);
 }

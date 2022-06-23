@@ -11,7 +11,10 @@ public class Item {
 	private int isbn;
 	private int shelf;
 
-    public Item(int ID, String titel, MediaType mediaType, int ageRating, String autor, int isbn, int shelf) {
+	public Item() {
+	}
+
+	public Item(int ID, String titel, MediaType mediaType, int ageRating, String autor, int isbn, int shelf) {
         this.ID = ID;
         Titel = titel;
         this.mediaType = mediaType;
@@ -43,6 +46,10 @@ public class Item {
 
 	public void setMediaType(MediaType mediaType) {
 		this.mediaType = mediaType;
+	}
+
+	public void setMediaType (int mediaType){
+		this.mediaType = MediaType.Book.getValue(mediaType);
 	}
 
 	public int getAgeRating() {

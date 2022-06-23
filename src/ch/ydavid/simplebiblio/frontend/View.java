@@ -19,7 +19,6 @@ public class View {
     public View() {
         sc = new Scanner(System.in);
 
-
         this.backend = new BackendFacade();
         System.out.println("Press 1 to Register");
         System.out.println("Press 2 to Login");
@@ -133,7 +132,33 @@ public class View {
      * Add a Item
      */
     public void addItem() {
+        sc.nextLine();
+        System.out.println("Please provide us with some information about the new Item.");
+        Item newItem = new Item();
+        System.out.print("Title: ");
+        newItem.setTitel(sc.nextLine());
+        System.out.print("Author: ");
+        newItem.setAutor(sc.nextLine());
+        System.out.print("AgeRating: ");
+        newItem.setAgeRating(sc.nextInt());
+        System.out.println("Mediatype: ");
+        System.out.println("1: Book");
+        System.out.println("2: DVD");
+        System.out.println("3: Audio-CD");
+        System.out.println("4: Computer-Game");
+        System.out.print("Input: ");
+        newItem.setMediaType(sc.nextInt());
+        System.out.print("ISBN: ");
+        newItem.setIsbn(sc.nextInt());
+        System.out.print("Shelf (int): ");
+        newItem.setShelf(sc.nextInt());
+        sc.nextLine();
 
+        if (backend.getItemManager().addItem(newItem)) {
+            System.out.println("Success!");
+        } else {
+            System.out.println("Error.");
+        }
     }
 
     /**
@@ -150,7 +175,7 @@ public class View {
         } else if (backend.getBorrowManager().borrowItem(input, user.getIdUser())) {
             System.out.println("Successfully borrowed the item.");
         } else {
-            System.out.println("ERROR");
+            System.out.println("Error.");
         }
 
     }
@@ -179,6 +204,55 @@ public class View {
      * Prints main Menu
      */
     public void printMenu() {
+        if (user.getIdUser() == 0) {
+            System.out.println("Welcome, Admin! ");
+
+            while (true) {
+
+                System.out.println("Type 1 for Item Management");
+                System.out.println("Type 2 for User Management");
+                System.out.println("Type 3 to exit");
+
+                switch (sc.nextInt()) {
+                    case 1 -> {
+                        System.out.println("Type 1 to add an Item");
+                        System.out.println("Type 2 to remove an Item");
+                        System.out.println("Type 3 to exit");
+                        switch (sc.nextInt()) {
+                            case 1 -> {
+                                addItem();
+                            }
+                            case 2 -> {
+                                removeItem();
+                            }
+                            case 3 -> System.exit(0);
+                            default -> {
+                                System.out.println("Invalid Input!");
+                                System.out.println("Please try Again");
+                            }
+                        }
+
+                    }
+                    case 2 -> {
+                        System.out.println("Type 1 to search for Users");
+                        System.out.println("Type 1 to remove an User");
+
+                        switch (sc.nextInt()) {
+                            case 1 -> searchCustomer();
+                            case 2 -> removeCustomer();
+                            default -> {
+                                System.out.println("Invalid Input!");
+                                System.out.println("Please try Again");
+                                System.exit(0);
+                            }
+                        }
+                    }
+                    case 3 -> System.exit(0);
+                    default -> System.out.println("Invalid input. Please try again");
+                }
+
+            }
+        }
         System.out.println();
         System.out.println("*** Welcome To SIMPLEBIBLIO, " + user.getVname() + " ***");
 
@@ -209,6 +283,16 @@ public class View {
         }
     }
 
+    private void removeCustomer() {
+
+    }
+
+    /**
+     * Removes a Item from the Database
+     */
+    private void removeItem() {
+    }
+
     /**
      * Return a borrowed item
      */
@@ -231,7 +315,7 @@ public class View {
         } else if (backend.getBorrowManager().returnItem(input)) {
             System.out.println("Successfully returned the item.");
         } else {
-            System.out.println("ERROR");
+            System.out.println("Error.");
         }
     }
 
@@ -239,7 +323,26 @@ public class View {
      * Search for a Customer
      */
     public void searchCustomer() {
+        System.out.println("Please type in the name of the customer: ");
+        String input = sc.next();
 
+        if (backend.getUserManager().searchUser(input) == null) {
+            System.out.println("Error: User not found.");
+            return;
+        }
+
+        User user = backend.getUserManager().searchUser(input);
+
+        System.out.println("--- USER FOUND ---");
+        System.out.println("ID: " + user.getIdUser());
+        System.out.println("Username: " + user.getUsername());
+        System.out.println("First Name: " + user.getVname());
+        System.out.println("Last Name: " + user.getName());
+        System.out.println("Year of Birth: " + user.getYob());
+        System.out.println("Street: " + user.getStreet());
+        System.out.println("Location: " + user.getLocation().getZIP() + " " +  user.getLocation().getLocation());
+        System.out.println("Email: " + user.getMail());
+        System.out.println("------------------");
     }
 
     /**
