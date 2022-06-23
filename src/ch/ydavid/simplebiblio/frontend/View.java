@@ -235,7 +235,7 @@ public class View {
                     }
                     case 2 -> {
                         System.out.println("Type 1 to search for Users");
-                        System.out.println("Type 1 to remove an User");
+                        System.out.println("Type 2 to remove an User");
 
                         switch (sc.nextInt()) {
                             case 1 -> searchCustomer();
@@ -243,7 +243,6 @@ public class View {
                             default -> {
                                 System.out.println("Invalid Input!");
                                 System.out.println("Please try Again");
-                                System.exit(0);
                             }
                         }
                     }
@@ -323,7 +322,7 @@ public class View {
      * Search for a Customer
      */
     public void searchCustomer() {
-        System.out.println("Please type in the name of the customer: ");
+        System.out.println("Please type in the username of the customer: ");
         String input = sc.next();
 
         if (backend.getUserManager().searchUser(input) == null) {
