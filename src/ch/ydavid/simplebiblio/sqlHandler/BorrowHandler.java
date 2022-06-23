@@ -15,7 +15,7 @@ public class BorrowHandler extends SqlHandler {
      */
     public boolean borrowItem(int itemID, int userID) {
         try {
-            String query = "INSERT INTO tbl_borrowed (fk_idUser, fk_idItem) ";
+            String query = "INSERT INTO tbl_borrowed (\"fk_idUser\", \"fk_idItem\") ";
             query += "VALUES (" + userID + ", " + itemID + ")";
 
             Connection connection = super.getConnection();
@@ -40,7 +40,7 @@ public class BorrowHandler extends SqlHandler {
      */
     public boolean returnItem(int itemID) {
         try {
-            String query = "UPDATE tbl_borrowed SET returned = 1 where returned = 0 AND fk_idItem = ";
+            String query = "UPDATE tbl_borrowed SET returned = 1 where returned = 0 AND \"fk_idItem\" = ";
             query += itemID;
 
             Connection connection = super.getConnection();
@@ -65,9 +65,9 @@ public class BorrowHandler extends SqlHandler {
      */
     public ArrayList<Integer> getBorrowedItems(int userID) {
         try {
-            String query = "SELECT fk_idItem FROM tbl_borrowed WHERE returned = 0";
+            String query = "SELECT \"fk_idItem\" FROM tbl_borrowed WHERE returned = 0";
             if (userID != -1)
-                query += " and fk_idUser = " + userID;
+                query += " and \"fk_idUser\" = " + userID;
 
             Connection connection = super.getConnection();
 
@@ -93,7 +93,7 @@ public class BorrowHandler extends SqlHandler {
      */
     public ArrayList<Integer> getReturnedItems() {
         try {
-            String query = "SELECT fk_idItem FROM tbl_borrowed WHERE returned = 1 GROUP BY fk_idItem";
+            String query = "SELECT \"fk_idItem\" FROM tbl_borrowed WHERE returned = 1 GROUP BY \"fk_idItem\"";
 
             Connection connection = super.getConnection();
 

@@ -18,7 +18,7 @@ class BorrowInterfaceTest {
     @BeforeAll
     public static void init() throws SQLException {
 
-        String query = "insert tbl_items values (-99, 'testbook', 0, 'roboter', -99, -99, 1)";
+        String query = "insert into tbl_items values (-99, 'testbook', 0, 'roboter', -99, -99, 1)";
 
         sqlHandler.getConnection().createStatement().execute(query);
 
@@ -27,11 +27,11 @@ class BorrowInterfaceTest {
     @AfterAll
     public static void tearDown() throws SQLException {
 
-        String query = "delete from tbl_borrowed where fk_idUser = -99";
+        String query = "delete from tbl_borrowed where \"fk_idUser\" = -99";
 
         sqlHandler.getConnection().createStatement().execute(query);
 
-        query = "delete from tbl_items where idMedia = -99";
+        query = "delete from tbl_items where \"idMedia\" = -99";
 
         sqlHandler.getConnection().createStatement().execute(query);
 
@@ -45,7 +45,7 @@ class BorrowInterfaceTest {
         borrowManager.borrowItem(-99, -99);
 
 
-        String query = "SELECT count(*) as 'count' from tbl_borrowed where fk_idUser = -99 and returned = 0";
+        String query = "SELECT count(*) as \"count\" from tbl_borrowed where \"fk_idUser\" = -99 and returned = 0";
         ResultSet rs = sqlHandler.getConnection().createStatement().executeQuery(query);
 
         assert rs.next();
@@ -61,7 +61,7 @@ class BorrowInterfaceTest {
 
         borrowManager.returnItem(-99);
 
-        String query = "SELECT count(*) as 'count' from tbl_borrowed where fk_idUser = -99 and returned = 1";
+        String query = "SELECT count(*) as \"count\" from tbl_borrowed where \"fk_idUser\" = -99 and returned = 1";
         ResultSet rs = sqlHandler.getConnection().createStatement().executeQuery(query);
 
         assert rs.next();
