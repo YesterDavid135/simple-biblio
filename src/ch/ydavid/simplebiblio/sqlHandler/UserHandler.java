@@ -80,29 +80,17 @@ public class UserHandler extends SqlHandler {
      *
      * @param username user to be changed
      */
-    public boolean removeUser(User user) {
-        String query = "delete from tbl_borrowed where \"fk_idUser\" = \'" + user.getIdUser() + "\'";
+    public boolean removeUser(String username) {
+
+
+        String query = "delete from tbl_users where username = \'" +username + "\'";
 
         try {
             Connection connection = super.getConnection();
 
             Statement stmt = connection.createStatement();
 
-            stmt.execute(query);
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-
-
-        query = "delete from tbl_users where username = \'" + user.getUsername() + "\'";
-
-        try {
-            Connection connection = super.getConnection();
-
-            Statement stmt = connection.createStatement();
-
-            if (!stmt.execute(query)){
+            if (!stmt.execute(query)) {
                 int count = stmt.getUpdateCount();
                 return count == 1;
             }

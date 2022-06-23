@@ -1,6 +1,7 @@
 package ch.ydavid.simplebiblio.backend;
 
 import ch.ydavid.simplebiblio.dto.User;
+import ch.ydavid.simplebiblio.sqlHandler.BorrowHandler;
 import ch.ydavid.simplebiblio.sqlHandler.UserHandler;
 
 public class UserManagement implements UserInterface {
@@ -16,7 +17,7 @@ public class UserManagement implements UserInterface {
         return sqlHandler.searchUser(user.getUsername());
     }
 
-    public boolean checkUsername(String username){
+    public boolean checkUsername(String username) {
         return sqlHandler.searchUser(username) == null;
     }
 
@@ -24,7 +25,9 @@ public class UserManagement implements UserInterface {
      * Remove a User in the Database
      */
     public boolean removeUser(String username) {
-        return sqlHandler.removeUser(searchUser(username));
+
+        if (!new BorrowManagement().deleteEntries(username)) return false;
+        return sqlHandler.removeUser(username);
     }
 
     /**
