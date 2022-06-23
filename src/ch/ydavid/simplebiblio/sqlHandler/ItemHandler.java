@@ -58,7 +58,7 @@ public class ItemHandler extends SqlHandler {
                 Item tmpItem = new Item(
                         rs.getInt("idMedia"),
                         rs.getString("title"),
-                        MediaType.Book.getValue(rs.getInt("fk_mediaType")),  //Maybe Error lol #todo
+                        MediaType.Book.getValue(rs.getInt("fk_mediaType")),  //Maybe Error lol
                         rs.getInt("ageRating"),
                         rs.getString("autor"),
                         rs.getInt("isbn"),

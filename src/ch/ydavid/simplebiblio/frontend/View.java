@@ -124,14 +124,14 @@ public class View {
     /**
      * Add a User
      */
-    public void addCustomer() {
+    private void addCustomer() {
 
     }
 
     /**
      * Add a Item
      */
-    public void addItem() {
+    private void addItem() {
         sc.nextLine();
         System.out.println("Please provide us with some information about the new Item.");
         Item newItem = new Item();
@@ -164,7 +164,7 @@ public class View {
     /**
      * Borrows a Itme
      */
-    public void borrowItem() {
+    private void borrowItem() {
         getAvalibleItems();
 
         System.out.print("Select your item (-1 for exit): ");
@@ -183,14 +183,14 @@ public class View {
     /**
      * Edits a User
      */
-    public void changeCustomer() {
+    private void changeCustomer() {
 
     }
 
     /**
      * Show Available Items
      */
-    public void getAvalibleItems() {
+    private void getAvalibleItems() {
         System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
         System.out.println();
         System.out.println("-----------------------------------------------------------------------------------------------");
@@ -203,7 +203,7 @@ public class View {
     /**
      * Prints main Menu
      */
-    public void printMenu() {
+    private void printMenu() {
         if (user.getIdUser() == 0) {
             System.out.println("Welcome, Admin! ");
 
@@ -216,17 +216,14 @@ public class View {
 
                 switch (sc.nextInt()) {
                     case 1 -> {
-                        System.out.println("Type 1 to add an Item");
-                        System.out.println("Type 2 to remove an Item");
-                        System.out.println("Type 3 to exit");
+                        System.out.println("Type 1 to search for a item");
+                        System.out.println("Type 2 to add an Item");
+                        System.out.println("Type 3 to remove an Item");
                         switch (sc.nextInt()) {
-                            case 1 -> {
-                                addItem();
-                            }
-                            case 2 -> {
-                                removeItem();
-                            }
-                            case 3 -> System.exit(0);
+                            case 1 -> searchItem();
+                            case 2 -> addItem();
+                            case 3 -> removeItem();
+
                             default -> {
                                 System.out.println("Invalid Input!");
                                 System.out.println("Please try Again");
@@ -237,10 +234,11 @@ public class View {
                     case 2 -> {
                         System.out.println("Type 1 to search for Users");
                         System.out.println("Type 2 to remove an User");
-
+                        System.out.println("Type 3 to change password for a User");
                         switch (sc.nextInt()) {
                             case 1 -> searchCustomer();
                             case 2 -> removeCustomer();
+                            case 3 -> changePassword();
                             default -> {
                                 System.out.println("Invalid Input!");
                                 System.out.println("Please try Again");
@@ -291,6 +289,10 @@ public class View {
             }
             System.out.println();
         }
+    }
+
+    private void changePassword() {
+        //todo
     }
 
     private void deleteBorrowEntries() {
@@ -350,12 +352,15 @@ public class View {
      * Removes a Item from the Database
      */
     private void removeItem() {
+
+        //todo
+
     }
 
     /**
      * Return a borrowed item
      */
-    public void returnItem() {
+    private void returnItem() {
         System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
         System.out.println();
         System.out.println("-----------------------------------------------------------------------------------------------");
@@ -381,7 +386,7 @@ public class View {
     /**
      * Search for a Customer
      */
-    public void searchCustomer() {
+    private void searchCustomer() {
         System.out.println("Please type in the username of the customer: ");
         String input = sc.next();
 
@@ -407,7 +412,18 @@ public class View {
     /**
      * Search for a Item
      */
-    public void searchItem() {
+    private void searchItem() {
+        sc.nextLine();
+        System.out.print("Please enter Title of the Item: ");
+        String itemTitle = sc.nextLine();
+        System.out.println();
+        System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
+        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        for (Item i : backend.getItemManager().searchItem((itemTitle))) {
+            System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
+            System.out.println();
+        }
 
     }
 }
