@@ -283,7 +283,20 @@ public class View {
     }
 
     private void removeCustomer() {
+        System.out.println("Please type in the username of the customer: ");
+        String input = sc.next();
 
+        if (backend.getUserManager().searchUser(input) == null) {
+            System.out.println("Error: User not found.");
+            return;
+        }
+
+        if (!backend.getUserManager().removeUser(input)) {
+            System.out.println("Error.");
+            return;
+        }
+
+        System.out.println("Successfully removed User.");
     }
 
     /**

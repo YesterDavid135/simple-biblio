@@ -77,13 +77,41 @@ public class UserHandler extends SqlHandler {
     }
 
     /**
-     * Changes a User <br>
-     * Everything can be changed except the ID
+     * Removes a User <br>
      *
-     * @param user user to be changed
+     * @param username user to be changed
      */
-    public void changeUser(User user) {
+    public boolean removeUser(User user) {
+        String query = "delete from tbl_borrowed where \"fk_idUser\" = \'" + user.getIdUser() + "\'";
 
+        try {
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            stmt.execute(query);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+        query = "delete from tbl_users where username = \'" + user.getUsername() + "\'";
+
+        try {
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            if (!stmt.execute(query)){
+                int count = stmt.getUpdateCount();
+                return count == 1;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
     /**
