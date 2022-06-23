@@ -26,16 +26,16 @@
 
     <target name="jar" depends="build">
         <!-- Entpacken und kopieren der benoetigten Libraries und Dateien -->
-        <unjar src="./lib/postgresql-42.4.0.jar" dest="./target/lib"/>
+        <unjar src="./Libraries/postgresql-42.4.0.jar" dest="./target/lib"/>
         <copy todir="./target/lib">
             <fileset dir="./bin"/>
         </copy>
 
         <!-- Erstellen des Java Archivs -->
-        <jar destfile="./target/bibliothek-daemon.jar">
+        <jar destfile="./target/simpleBiblio.jar">
             <fileset dir="./target/lib"/>
             <manifest>
-                <attribute name="Main-Class" value="com.aprentas.bibliothek.gui.MahnungsDaemon"/>
+                <attribute name="Main-Class" value="ch.ydavid.simplebiblio.frontend.Starter"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
         </jar>
