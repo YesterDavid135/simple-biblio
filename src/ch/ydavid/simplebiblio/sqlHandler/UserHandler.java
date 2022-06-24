@@ -3,11 +3,9 @@ package ch.ydavid.simplebiblio.sqlHandler;
 import ch.ydavid.simplebiblio.dto.Location;
 import ch.ydavid.simplebiblio.dto.User;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class UserHandler extends SqlHandler {
@@ -142,4 +140,24 @@ public class UserHandler extends SqlHandler {
         return null;
     }
 
+    public boolean changePassword(User user) {
+
+        String query = "UPDATE tbl_users SET password = '" + user.getPassword() + "' WHERE username = '" + user.getUsername() + "'";
+
+        try {
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            if (!stmt.execute(query)) {
+                int count = stmt.getUpdateCount();
+                return count == 1;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return false;
+    }
 }

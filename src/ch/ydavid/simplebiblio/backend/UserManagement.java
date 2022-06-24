@@ -16,7 +16,7 @@ public class UserManagement implements UserInterface {
         return sqlHandler.searchUser(user.getUsername());
     }
 
-    public boolean checkUsername(String username){
+    public boolean checkUsername(String username) {
         return sqlHandler.searchUser(username) == null;
     }
 
@@ -52,5 +52,12 @@ public class UserManagement implements UserInterface {
         }
 
         return null;
+    }
+
+    public boolean changePassword(User user) {
+
+        return sqlHandler.changePassword(user);
+
+
     }
 }

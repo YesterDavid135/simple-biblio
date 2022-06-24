@@ -12,7 +12,7 @@ public class ItemManagement implements ItemInterface {
     /**
      * Search for Item in the Database
      *
-     * @return
+     * @return ArrayList containing all Items
      */
     public ArrayList<Item> searchItem(String s) {
 
@@ -30,7 +30,7 @@ public class ItemManagement implements ItemInterface {
     /**
      * Add a Item to the Database
      *
-     * @return
+     * @return boolean indicating success
      */
     public boolean addItem(Item newItem) {
 

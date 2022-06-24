@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class View {
     private User user; //Current logged in user
-    private BackendFacade backend;
+    private final BackendFacade backend;
 
     private final Scanner sc;
 
@@ -28,14 +28,9 @@ public class View {
         sc.nextLine();
 
         switch (input) {
-            case 1:
-                register();
-                break;
-            case 2:
-                login();
-                break;
-            default:
-                System.exit(0);
+            case 1 -> register();
+            case 2 -> login();
+            default -> System.exit(0);
         }
 
         printMenu();
@@ -122,13 +117,6 @@ public class View {
     }
 
     /**
-     * Add a User
-     */
-    private void addCustomer() {
-
-    }
-
-    /**
      * Add a Item
      */
     private void addItem() {
@@ -177,13 +165,6 @@ public class View {
         } else {
             System.out.println("Error.");
         }
-
-    }
-
-    /**
-     * Edits a User
-     */
-    private void changeCustomer() {
 
     }
 
@@ -275,23 +256,32 @@ public class View {
             int input = sc.nextInt();
 
             switch (input) {
-                case 1:
-                    borrowItem();
-                    break;
-                case 2:
-                    returnItem();
-                    break;
-                case 3:
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Invalid input. Please try again");
+                case 1 -> borrowItem();
+                case 2 -> returnItem();
+                case 3 -> System.exit(0);
+                default -> System.out.println("Invalid input. Please try again");
             }
             System.out.println();
         }
     }
 
     private void changePassword() {
+        System.out.println("Please type in the username of the User: ");
+        String input = sc.next();
+
+        if (backend.getUserManager().searchUser(input) == null) {
+            System.out.println("Error: User not found.");
+            return;
+        }
+
+        User user = backend.getUserManager().searchUser(input);
+        System.out.println("Please type in the new password: ");
+        String password = sc.next();
+        user.setPassword(password.hashCode());
+        backend.getUserManager().changePassword(user);
+        System.out.println("Password changed.");
+
+
         //todo
     }
 
@@ -300,7 +290,7 @@ public class View {
         System.out.println("Are you sure to delete ALL Borrow Entries?");
         System.out.print("Type YES to Continue: ");
 
-        if (!sc.nextLine().toLowerCase().equals("yes")){
+        if (!sc.nextLine().equalsIgnoreCase("yes")){
             System.out.println("Process Aborted!");
             return;
         }
