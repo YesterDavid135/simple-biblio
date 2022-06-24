@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class View {
     private User user; //Current logged in user
-    private BackendFacade backend;
+    private final BackendFacade backend;
 
     private final Scanner sc;
 
@@ -28,14 +28,9 @@ public class View {
         sc.nextLine();
 
         switch (input) {
-            case 1:
-                register();
-                break;
-            case 2:
-                login();
-                break;
-            default:
-                System.exit(0);
+            case 1 -> register();
+            case 2 -> login();
+            default -> System.exit(0);
         }
 
         printMenu();
@@ -122,16 +117,9 @@ public class View {
     }
 
     /**
-     * Add a User
-     */
-    public void addCustomer() {
-
-    }
-
-    /**
      * Add a Item
      */
-    public void addItem() {
+    private void addItem() {
         sc.nextLine();
         System.out.println("Please provide us with some information about the new Item.");
         Item newItem = new Item();
@@ -164,7 +152,7 @@ public class View {
     /**
      * Borrows a Itme
      */
-    public void borrowItem() {
+    private void borrowItem() {
         getAvalibleItems();
 
         System.out.print("Select your item (-1 for exit): ");
@@ -181,16 +169,9 @@ public class View {
     }
 
     /**
-     * Edits a User
-     */
-    public void changeCustomer() {
-
-    }
-
-    /**
      * Show Available Items
      */
-    public void getAvalibleItems() {
+    private void getAvalibleItems() {
         System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
         System.out.println();
         System.out.println("-----------------------------------------------------------------------------------------------");
@@ -203,7 +184,7 @@ public class View {
     /**
      * Prints main Menu
      */
-    public void printMenu() {
+    private void printMenu() {
         if (user.getIdUser() == 0) {
             System.out.println("Welcome, Admin! ");
 
@@ -216,17 +197,14 @@ public class View {
 
                 switch (sc.nextInt()) {
                     case 1 -> {
-                        System.out.println("Type 1 to add an Item");
-                        System.out.println("Type 2 to remove an Item");
-                        System.out.println("Type 3 to exit");
+                        System.out.println("Type 1 to search for a item");
+                        System.out.println("Type 2 to add an Item");
+                        System.out.println("Type 3 to remove an Item");
                         switch (sc.nextInt()) {
-                            case 1 -> {
-                                addItem();
-                            }
-                            case 2 -> {
-                                removeItem();
-                            }
-                            case 3 -> System.exit(0);
+                            case 1 -> searchItem();
+                            case 2 -> addItem();
+                            case 3 -> removeItem();
+
                             default -> {
                                 System.out.println("Invalid Input!");
                                 System.out.println("Please try Again");
@@ -237,10 +215,11 @@ public class View {
                     case 2 -> {
                         System.out.println("Type 1 to search for Users");
                         System.out.println("Type 2 to remove an User");
-
+                        System.out.println("Type 3 to change password for a User");
                         switch (sc.nextInt()) {
                             case 1 -> searchCustomer();
                             case 2 -> removeCustomer();
+                            case 3 -> changePassword();
                             default -> {
                                 System.out.println("Invalid Input!");
                                 System.out.println("Please try Again");
@@ -277,20 +256,32 @@ public class View {
             int input = sc.nextInt();
 
             switch (input) {
-                case 1:
-                    borrowItem();
-                    break;
-                case 2:
-                    returnItem();
-                    break;
-                case 3:
-                    System.exit(0);
-                    break;
-                default:
-                    System.out.println("Invalid input. Please try again");
+                case 1 -> borrowItem();
+                case 2 -> returnItem();
+                case 3 -> System.exit(0);
+                default -> System.out.println("Invalid input. Please try again");
             }
             System.out.println();
         }
+    }
+
+    private void changePassword() {
+        System.out.println("Please type in the username of the User: ");
+        String input = sc.next();
+
+        if (backend.getUserManager().searchUser(input) == null) {
+            System.out.println("Error: User not found.");
+            return;
+        }
+
+        User user = backend.getUserManager().searchUser(input);
+        System.out.println("Please type in the new password: ");
+        String password = sc.next();
+        user.setPassword(password.hashCode());
+        backend.getUserManager().changePassword(user);
+        System.out.println("Password changed.");
+
+
     }
 
     private void deleteBorrowEntries() {
@@ -298,7 +289,7 @@ public class View {
         System.out.println("Are you sure to delete ALL Borrow Entries?");
         System.out.print("Type YES to Continue: ");
 
-        if (!sc.nextLine().toLowerCase().equals("yes")){
+        if (!sc.nextLine().equalsIgnoreCase("yes")){
             System.out.println("Process Aborted!");
             return;
         }
@@ -350,12 +341,22 @@ public class View {
      * Removes a Item from the Database
      */
     private void removeItem() {
+
+        searchItem();
+
+        System.out.println("Please enter ID to delete");
+
+       if(backend.getItemManager().deleteItem(sc.nextInt()))
+           System.out.println("Succesfully deleted the Item");
+       else
+           System.out.println("Error occured, please ask Noel");
+
     }
 
     /**
      * Return a borrowed item
      */
-    public void returnItem() {
+    private void returnItem() {
         System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
         System.out.println();
         System.out.println("-----------------------------------------------------------------------------------------------");
@@ -381,7 +382,7 @@ public class View {
     /**
      * Search for a Customer
      */
-    public void searchCustomer() {
+    private void searchCustomer() {
         System.out.println("Please type in the username of the customer: ");
         String input = sc.next();
 
@@ -407,7 +408,18 @@ public class View {
     /**
      * Search for a Item
      */
-    public void searchItem() {
+    private void searchItem() {
+        sc.nextLine();
+        System.out.print("Please enter Title of the Item: ");
+        String itemTitle = sc.nextLine();
+        System.out.println();
+        System.out.format("%5s%40s%30s%20s", "ID", "Titel", "Autor", "Mediatype");
+        System.out.println();
+        System.out.println("-----------------------------------------------------------------------------------------------");
+        for (Item i : backend.getItemManager().searchItem((itemTitle))) {
+            System.out.format("%5d%40s%30s%20s", i.getID(), i.getTitel(), i.getAutor(), i.getMediaType());
+            System.out.println();
+        }
 
     }
 }

@@ -28,9 +28,6 @@ public class Item {
 		return ID;
 	}
 
-	public void setID(int ID) {
-		this.ID = ID;
-	}
 
     public String getTitel() {
         return Titel;
@@ -44,9 +41,6 @@ public class Item {
 		return mediaType;
 	}
 
-	public void setMediaType(MediaType mediaType) {
-		this.mediaType = mediaType;
-	}
 
 	public void setMediaType (int mediaType){
 		this.mediaType = MediaType.Book.getValue(mediaType);

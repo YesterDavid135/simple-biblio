@@ -44,7 +44,7 @@ public class ItemHandler extends SqlHandler {
      */
     public ArrayList<Item> getItems() {
         try {
-            String query = "SELECT * FROM tbl_items";
+            String query = "SELECT * FROM tbl_items order by \"idMedia\"";
 
             Connection connection = super.getConnection();
 
@@ -58,7 +58,7 @@ public class ItemHandler extends SqlHandler {
                 Item tmpItem = new Item(
                         rs.getInt("idMedia"),
                         rs.getString("title"),
-                        MediaType.Book.getValue(rs.getInt("fk_mediaType")),  //Maybe Error lol #todo
+                        MediaType.Book.getValue(rs.getInt("fk_mediaType")),  //Maybe Error lol
                         rs.getInt("ageRating"),
                         rs.getString("autor"),
                         rs.getInt("isbn"),
@@ -71,5 +71,26 @@ public class ItemHandler extends SqlHandler {
             System.out.println(e);
             return null;
         }
+    }
+
+    public boolean deleteItem(int id) {
+
+
+        String query = "delete from tbl_items where \"idMedia\" = '" + id + "'";
+
+        try {
+            Connection connection = super.getConnection();
+
+            Statement stmt = connection.createStatement();
+
+            if (!stmt.execute(query)) {
+                int count = stmt.getUpdateCount();
+                return count == 1;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 }
