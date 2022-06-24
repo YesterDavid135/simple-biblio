@@ -1,5 +1,6 @@
 package ch.ydavid.simplebiblio.backend;
 
+import ch.ydavid.simplebiblio.dto.Borrowed;
 import ch.ydavid.simplebiblio.dto.Item;
 import ch.ydavid.simplebiblio.sqlHandler.BorrowHandler;
 import ch.ydavid.simplebiblio.sqlHandler.ItemHandler;
@@ -88,6 +89,13 @@ public class BorrowManagement implements BorrowInterface {
 
 
         return sqlHandler.deleteEntries(userID);
+
+
+    }
+
+    public ArrayList<Borrowed> getUnreturnedEntries() {
+
+        return sqlHandler.getUnreturnedItems();
 
 
     }

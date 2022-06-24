@@ -12,3 +12,5 @@
 
 
 **Full Changelog**: https://github.com/YesterDavid135/simple-biblio/compare/INT01...REL01
+
+Copyright (c) 1997, PostgreSQL Global Development Group in https://github.com/YesterDavid135/simple-biblio/blob/master/Libraries/postgresql-42.4.0.jar
