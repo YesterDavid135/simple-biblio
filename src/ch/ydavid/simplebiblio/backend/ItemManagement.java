@@ -37,4 +37,10 @@ public class ItemManagement implements ItemInterface {
        return sqlHandler.addItem(newItem);
 
     }
+
+    public boolean deleteItem(int id) {
+
+       return sqlHandler.deleteItem(id);
+
+    }
 }

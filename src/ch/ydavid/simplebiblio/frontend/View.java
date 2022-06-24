@@ -353,7 +353,14 @@ public class View {
      */
     private void removeItem() {
 
-        //todo
+        searchItem();
+
+        System.out.println("Please enter ID to delete");
+
+       if(backend.getItemManager().deleteItem(sc.nextInt()))
+           System.out.println("Succesfully deleted the Item");
+       else
+           System.out.println("Error occured, please ask Noel");
 
     }
 
