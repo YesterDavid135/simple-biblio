@@ -1,0 +1,14 @@
+## What's Changed
+* Admin stuff by @YesterDavid135 in https://github.com/YesterDavid135/simple-biblio/pull/9
+* clean up by @cashlessxd in https://github.com/YesterDavid135/simple-biblio/pull/10
+* add removeUser by @cashlessxd in https://github.com/YesterDavid135/simple-biblio/pull/11
+* added borrowTableDeleteFunction by @YesterDavid135 in https://github.com/YesterDavid135/simple-biblio/pull/12
+* fix userdelete by @YesterDavid135 in https://github.com/YesterDavid135/simple-biblio/pull/15
+* changed sql by @cashlessxd in https://github.com/YesterDavid135/simple-biblio/pull/18
+* remove unused method by @cashlessxd in https://github.com/YesterDavid135/simple-biblio/pull/17
+* Readme by @YesterDavid135 in https://github.com/YesterDavid135/simple-biblio/pull/19
+* GitHub ant by @YesterDavid135 in https://github.com/YesterDavid135/simple-biblio/pull/16
+* Admin stuff by @YesterDavid135 in https://github.com/YesterDavid135/simple-biblio/pull/20
+
+
+**Full Changelog**: https://github.com/YesterDavid135/simple-biblio/compare/INT01...REL01
